@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.kosoc.customenchants.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "EntityDamageMixing",
+    "ItemStackMixin",
+    "ModPlayerDataSaveMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

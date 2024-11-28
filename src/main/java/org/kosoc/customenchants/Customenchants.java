@@ -12,6 +12,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.MinecraftServer;
@@ -39,6 +41,7 @@ public class Customenchants implements ModInitializer {
     public static Enchantment SB = new SoulboundEnchant(EquipmentSlot.values());
     public static Enchantment BTrain = new BTrainEnchant();
     public static StatusEffect JACKPOTS = new JackpotEffect();
+
 
     @Override
     public void onInitialize() {

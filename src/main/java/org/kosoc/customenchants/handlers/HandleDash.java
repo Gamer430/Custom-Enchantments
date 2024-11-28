@@ -3,10 +3,14 @@ package org.kosoc.customenchants.handlers;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.kosoc.customenchants.Customenchants;
 import org.kosoc.customenchants.IPlayerData;
+import org.kosoc.customenchants.packets.ModPackets;
 import org.kosoc.customenchants.utils.DashData;
 import org.kosoc.customenchants.utils.ParticleRegistry;
 import org.kosoc.customenchants.utils.RechargeData;
@@ -16,7 +20,13 @@ public class HandleDash {
 
     public static void performDash(PlayerEntity player) {
         int dashlevel = DashData.getCharges((IPlayerData) player);
-        if (dashlevel <= 0) return;
+        boolean worked = true;
+        if (dashlevel <= 0){
+            worked = false;
+            ModPackets.sendDashWorkPacket((ServerPlayerEntity) player, worked);
+            return;
+        }
+        ModPackets.sendDashWorkPacket((ServerPlayerEntity) player, worked);
 
         Vec3d lookVector = player.getRotationVector();
         double velocityMagnitude = 2.75; // Fixed dash velocity
@@ -40,6 +50,7 @@ public class HandleDash {
 
         DashData.removeCharges(((IPlayerData) player));
         RechargeData.setRecharge(((IPlayerData) player), 0);
+        ModPackets.sendDashUpdatePacket((ServerPlayerEntity) player, DashData.getCharges((IPlayerData) player));
 
 
     }
@@ -48,7 +59,7 @@ public class HandleDash {
     public static void updateRechargeTimer(PlayerEntity player) {
         int chargecount = EnchantmentHelper.getLevel(Customenchants.DASH, player.getEquippedStack(EquipmentSlot.FEET));
         if(player.isOnGround()) {
-            RechargeData.rechargeTick(((IPlayerData) player), chargecount);
+            RechargeData.rechargeTick(player, chargecount);
         }else return;
     }
 

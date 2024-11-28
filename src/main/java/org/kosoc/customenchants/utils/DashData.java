@@ -2,6 +2,7 @@ package org.kosoc.customenchants.utils;
 
 import net.minecraft.nbt.NbtCompound;
 import org.kosoc.customenchants.IPlayerData;
+import org.kosoc.customenchants.packets.ModPackets;
 
 public class DashData {
     public static int addCharges(IPlayerData player, int amount, int maxCharges){

@@ -1,11 +1,16 @@
 package org.kosoc.customenchants.utils;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvents;
 import org.kosoc.customenchants.IPlayerData;
+import org.kosoc.customenchants.packets.ModPackets;
 
 
 public class RechargeData {
-    public static int rechargeTick(IPlayerData player, int maxCharges){
-        NbtCompound nbt = player.getPersistantData();
+    public static int rechargeTick(PlayerEntity player, int maxCharges){
+        IPlayerData playerData = (IPlayerData) player;
+        NbtCompound nbt = playerData.getPersistantData();
         int rechargeTotal = nbt.getInt("recharge");
         int charges = nbt.getInt("charges");
         if(charges < maxCharges){
@@ -13,7 +18,8 @@ public class RechargeData {
                 rechargeTotal += 1;
             }else{
                 rechargeTotal = 0;
-                DashData.addCharges(player,1, maxCharges);
+                DashData.addCharges(playerData,1, maxCharges);
+                ModPackets.sendDashUpdatePacket((ServerPlayerEntity) player,DashData.getCharges(playerData));
             }
         }
         nbt.putInt("recharge",rechargeTotal);

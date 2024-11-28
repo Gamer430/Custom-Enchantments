@@ -20,5 +20,9 @@ public class BTrainEnchant extends Enchantment {
     public boolean isCursed(){
         return true;
     }
+    @Override
+    public boolean isAvailableForEnchantedBookOffer(){
+        return true;
+    }
 
 }

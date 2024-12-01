@@ -38,17 +38,13 @@ public abstract class ItemStackMixin {
 
 
     @Inject(method = "addEnchantment", at = @At("RETURN"))
-    public void addEnchantment(Enchantment enchantment, int level, CallbackInfo ci){
+    public void addEnchantment(Enchantment enchantment, int level, CallbackInfo ci) {
         ItemStack item = (ItemStack) (Object) this;
         EquipmentSlot equip = EquipmentSlotUtil.getMainEquipmentSlot(item);
-        if(EnchantmentHelper.getLevel(Customenchants.VANILLA, item) > 0){
+        if (EnchantmentHelper.getLevel(Customenchants.VANILLA, item) > 0) {
             VanillaModifier.applyAttributeMultipliers(item, equip, 2.0);
-        }else if(EnchantmentHelper.getLevel(Customenchants.SB, item) > 0){
-            if(!SoulboundUtils.isSoulbound(item)){
-                SoulboundUtils.makeSoulbound(item);
-            }
+        } else if (EnchantmentHelper.getLevel(Customenchants.SB, item) > 0) {
         }
+
     }
-
-
 }

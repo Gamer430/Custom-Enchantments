@@ -3,6 +3,7 @@ package org.kosoc.customenchants;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -19,12 +20,10 @@ import net.minecraft.registry.Registry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import nexusrealms.riftrealmsutils.api.SoulboundTransferCallback;
 import org.kosoc.customenchants.effects.JackpotEffect;
 import org.kosoc.customenchants.enchants.*;
-import org.kosoc.customenchants.handlers.BTrainHandler;
-import org.kosoc.customenchants.handlers.HandleDash;
-import org.kosoc.customenchants.handlers.JackpotHandler;
-import org.kosoc.customenchants.handlers.XPMultHandler;
+import org.kosoc.customenchants.handlers.*;
 import org.kosoc.customenchants.packets.ModPackets;
 import org.kosoc.customenchants.utils.ParticleRegistry;
 
@@ -79,7 +78,8 @@ public class Customenchants implements ModInitializer {
                 }
             });
         });
-
+        SoulboundTransferCallback.SHOULD.register((oldPlayer, stack) -> (EnchantmentHelper.getLevel(Customenchants.SB, stack) > 0));
+        CauldronTransformHandler.registerEvents();
     }
 
     private void onServerTick(MinecraftServer server) {

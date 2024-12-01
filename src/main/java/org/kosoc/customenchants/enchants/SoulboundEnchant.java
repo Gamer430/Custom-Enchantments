@@ -28,4 +28,8 @@ public class SoulboundEnchant extends Enchantment {
     public boolean isAvailableForRandomSelection(){
         return false;
     }
+    @Override
+    public boolean isAvailableForEnchantedBookOffer(){
+        return true;
+    }
 }

@@ -20,7 +20,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import nexusrealms.riftrealmsutils.api.SoulboundTransferCallback;
+import de.nexusrealms.riftrealmsutils.api.SoulboundTransferCallback;
 import org.kosoc.customenchants.effects.JackpotEffect;
 import org.kosoc.customenchants.enchants.*;
 import org.kosoc.customenchants.handlers.*;
